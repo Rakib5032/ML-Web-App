@@ -20,9 +20,11 @@ Virtual environment (recommended)
     cd ml_web_app
 
 2. Create a virtual environment
+
     python -m venv venv
 
 3. Activate the virtual environment
+    
     On Windows:
     venv\Scripts\activate
 
@@ -30,40 +32,54 @@ Virtual environment (recommended)
     source venv/bin/activate
 
 4. Install dependencies
+    
     pip install -r requirements.txt
 
 5. lace your trained models
+    
     Ensure random_forest_model.pkl is in the models/ directory
     Ensure preprocessor.pkl is in the models/ directory
 
 🚀 Running the Application
 1. Start the Flask development server
+    
     python app.py
 
 2. Open your web browser and navigate to:
+    
     http://localhost:5000
 
 
 📁 Project Structure
+
 ml_web_app/
 │
-├── app.py 
+├── app.py
+|
 ├── requirements.txt
+|
 ├── models/
+|   |
 │   ├── random_forest_model.pkl
 │   └── preprocessor.pkl
+|
 ├── templates/
+|   |
 │   ├── index.html
 │   └── result.html
 ├── static/
+|   |
 │   ├── style.css 
 │
 └── README.md
 
 🎯 How to Use
+
 Web Interface
+
 1. Navigate to the home page
 2. Fill in the IoT system parameters:
+
 Data Size (KB)
     Processing Time (ms)
     Attack Severity (0-10 scale)
@@ -156,6 +172,6 @@ Create a new issue with detailed information
     Docker containerization
     Cloud deployment templates
  
- 
+
 Made with ❤️ for IoT Security
 
