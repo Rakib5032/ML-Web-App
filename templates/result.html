@@ -2,17 +2,231 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Prediction Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result - IoT Threat Shield</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="background-pattern"></div>
+    
     <div class="container">
-        <h1>IoT Threat Mitigation Result</h1>
-        <div class="result">
-            <h2>Status: {{ status }}</h2>
-            <p>{{ warning }}</p>
+        <div class="header">
+            <h1>🛡️ IoT Threat Shield</h1>
+            <p>AI-Powered Security Analysis Results</p>
         </div>
-        <a href="{{ url_for('home') }}"><button>Back</button></a>
+
+        <div class="result-container">
+            <div class="result-card">
+                <div class="result-header">
+                    <div class="result-icon {{ status_class }}">
+                        {{ icon|safe }}
+                    </div>
+                    <h2 class="result-title {{ status_class }}">{{ status }}</h2>
+                    <div class="confidence-badge">
+                        <span class="confidence-label">Confidence:</span>
+                        <span class="confidence-value">{{ confidence }}%</span>
+                    </div>
+                </div>
+
+                <div class="result-content">
+                    <div class="result-message">
+                        <h3>Assessment Summary</h3>
+                        <p>{{ message }}</p>
+                    </div>
+
+                    <div class="recommendation-box">
+                        <h4>🎯 Recommended Action</h4>
+                        <p>{{ recommendation }}</p>
+                    </div>
+
+                    <div class="analysis-details">
+                        <h4>📊 Input Parameters Analyzed</h4>
+                        <div class="parameter-grid">
+                            {% for key, value in input_data.items() %}
+                            <div class="parameter-item">
+                                <span class="parameter-label">{{ key }}:</span>
+                                <span class="parameter-value">{{ value[0] }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <a href="{{ url_for('home') }}" class="btn-primary">
+                        🔄 New Analysis
+                    </a>
+                    <button onclick="downloadReport()" class="btn-secondary">
+                        📋 Download Report
+                    </button>
+                    <button onclick="shareResults()" class="btn-secondary">
+                        📤 Share Results
+                    </button>
+                </div>
+            </div>
+
+            <div class="additional-info">
+                <div class="security-tips">
+                    <h3>💡 Security Best Practices</h3>
+                    <ul>
+                        <li>Regularly update IoT device firmware</li>
+                        <li>Use strong, unique passwords for each device</li>
+                        <li>Enable network segmentation for IoT devices</li>
+                        <li>Monitor device behavior for anomalies</li>
+                        <li>Implement end-to-end encryption</li>
+                        <li>Regular security audits and assessments</li>
+                    </ul>
+                </div>
+
+                <div class="threat-matrix">
+                    <h3>🎯 Threat Assessment Matrix</h3>
+                    <div class="matrix-grid">
+                        <div class="matrix-item low">
+                            <div class="matrix-level">Low</div>
+                            <div class="matrix-desc">Standard monitoring</div>
+                        </div>
+                        <div class="matrix-item medium">
+                            <div class="matrix-level">Medium</div>
+                            <div class="matrix-desc">Enhanced alerts</div>
+                        </div>
+                        <div class="matrix-item high">
+                            <div class="matrix-level">High</div>
+                            <div class="matrix-desc">Immediate response</div>
+                        </div>
+                        <div class="matrix-item critical">
+                            <div class="matrix-level">Critical</div>
+                            <div class="matrix-desc">Emergency protocol</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Add result page specific animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultCard = document.querySelector('.result-card');
+            resultCard.style.opacity = '0';
+            resultCard.style.transform = 'translateY(50px)';
+            
+            setTimeout(() => {
+                resultCard.style.transition = 'all 0.8s ease';
+                resultCard.style.opacity = '1';
+                resultCard.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Add pulse animation to result icon
+            const resultIcon = document.querySelector('.result-icon');
+            if (resultIcon) {
+                resultIcon.style.animation = 'pulse 2s infinite';
+            }
+        });
+
+        function downloadReport() {
+            // Create a simple report
+            const reportData = {
+                timestamp: new Date().toISOString(),
+                status: '{{ status }}',
+                confidence: '{{ confidence }}%',
+                message: '{{ message }}',
+                recommendation: '{{ recommendation }}'
+            };
+            
+            const reportText = `
+IoT Threat Assessment Report
+===========================
+Generated: ${reportData.timestamp}
+
+Status: ${reportData.status}
+Confidence: ${reportData.confidence}
+
+Summary: ${reportData.message}
+
+Recommendation: ${reportData.recommendation}
+
+Generated by IoT Threat Shield
+            `;
+            
+            const blob = new Blob([reportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'iot-threat-report.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            // Show success message
+            showNotification('Report downloaded successfully!', 'success');
+        }
+
+        function shareResults() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'IoT Threat Assessment Result',
+                    text: 'Check out my IoT security analysis: {{ status }} with {{ confidence }}% confidence',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                const shareText = `IoT Threat Assessment: {{ status }} ({{ confidence }}% confidence)`;
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showNotification('Results copied to clipboard!', 'success');
+                });
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#48bb78' : '#f56565'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 1000;
+                animation: slideIn 0.5s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Add slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes pulse {
+                0%, 100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
