@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Threat Mitigation - AI-Powered Security</title>
+    <title>IoT Threat Analysis - AI-Powered Security</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="background-pattern"></div>
-    
-    <div class="container">
+
+
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-brand">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">IoT Threat Shield</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Analysis</a>
+                <a href="#AI_models" class="nav-link">AI Models</a>
+            </div>
+            <div class="nav-actions">
+                <a href="{{ url_for('home') }}" class="nav-cta">← Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container analysis-container">
         <div class="header">
-            <h1>🛡️ IoT Threat Shield</h1>
-            <p>AI-Powered IoT Security & Threat Mitigation System</p>
-            
+            <div class="header-title">
+                <span class="icon">🛡️</span>
+                <h1>IoT Threat Analysis</h1>
+            </div>
+
+            <p>AI-Powered IoT Security & Threat Assessment System</p>
+
             <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-number">96%</span>
+                <div class="stat-card">
+                    <span class="stat-number">Upto 98%</span>
                     <span class="stat-label">Accuracy</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">&lt;50ms</span>
+                <div class="stat-card">
+                    <span class="stat-number">&lt;100ms</span>
                     <span class="stat-label">Response Time</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-card">
                     <span class="stat-number">24/7</span>
                     <span class="stat-label">Protection</span>
                 </div>
@@ -46,35 +71,56 @@
                 </div>
 
                 <form method="POST" id="predictionForm">
+                    <!-- Model Selection -->
+                    <div class="form-group full-width model-selection">
+                        <label class="form-label">🤖 ML Model Selection</label>
+                        <select class="form-select" name="model_type" required>
+                            {% if models %}
+                            {% for model_key, model_info in models.items() %}
+                            <option value="{{ model_key }}" {% if model_key=='random_forest' %}selected{% endif %}>
+                                {{ model_info.name }}{% if model_key == 'random_forest' %} (Default){% endif %}
+                            </option>
+                            {% endfor %}
+                            {% else %}
+                            <option value="random_forest" selected>Random Forest (Default)</option>
+                            {% endif %}
+                        </select>
+                        <small class="model-info">Choose the machine learning algorithm for threat detection</small>
+                    </div>
+
                     <div class="form-grid">
                         <div class="form-group">
                             <label class="form-label">📊 Data Size (KB)</label>
-                            <input type="number" step="any" class="form-input" name="data_size" placeholder="e.g. 525" required>
+                            <input type="number" step="any" class="form-input" name="data_size" placeholder="e.g. 524"
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">⏱️ Processing Time (ms)</label>
-                            <input type="number" step="any" class="form-input" name="processing_time" placeholder="e.g. 50" required>
+                            <input type="number" step="any" class="form-input" name="processing_time"
+                                placeholder="e.g. 50" required>
                         </div>
 
                         <div class="form-group full-width">
-                            <label class="form-label">🎯 Attack Severity 
+                            <label class="form-label">🎯 Attack Severity
                                 <span class="range-value" id="attackValue">5</span>
                             </label>
                             <div class="range-container">
-                                <input type="range" min="0" max="10" step="1" class="range-input" 
-                                       name="attack_severity" id="attackSeverity" value="5" required>
+                                <input type="range" min="0" max="10" step="1" class="range-input" name="attack_severity"
+                                    id="attackSeverity" value="5" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">⛓️ Blockchain Time (ms)</label>
-                            <input type="number" step="any" class="form-input" name="blockchain_time" placeholder="e.g. 115" required>
+                            <input type="number" step="any" class="form-input" name="blockchain_time"
+                                placeholder="e.g. 115" required>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">🔋 Energy Consumption (mJ)</label>
-                            <input type="number" step="any" class="form-input" name="energy" placeholder="e.g. 1.10" required>
+                            <input type="number" step="any" class="form-input" name="energy" placeholder="e.g. 1.10"
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -128,41 +174,65 @@
                 </form>
             </div>
 
-            <div class="info-panel">
-                <div class="info-header">
-                    <div class="info-icon">🛡️</div>
-                    <div class="info-title">Security Insights</div>
-                </div>
-
-                <div class="threat-levels">
-                    <div class="threat-level">
-                        <div class="level-indicator level-low"></div>
-                        <div class="level-text">Low Risk (0-2): Minimal threat detected</div>
-                    </div>
-                    <div class="threat-level">
-                        <div class="level-indicator level-medium"></div>
-                        <div class="level-text">Medium Risk (3-5): Moderate attention needed</div>
-                    </div>
-                    <div class="threat-level">
-                        <div class="level-indicator level-high"></div>
-                        <div class="level-text">High Risk (6-8): Immediate action required</div>
-                    </div>
-                    <div class="threat-level">
-                        <div class="level-indicator level-critical"></div>
-                        <div class="level-text">Critical Risk (9-10): Emergency response</div>
+            <!-- AI Models Section -->
+            <section id="AI_models" class="AI_models">
+                <div class="container analysis-container">
+                    <div class="header">
+                        <h1>Available ML Models</h1>
+                        <p>Explore the machine learning algorithms powering our threat detection</p>
                     </div>
                 </div>
 
-                <h4 style="color: #2d3748; margin-bottom: 15px; font-size: 1.1rem;">🚀 Key Features</h4>
-                <ul class="features-list">
-                    <li>Real-time ML-based threat detection</li>
-                    <li>Blockchain-secured IoT transactions</li>
-                    <li>Multi-layer security analysis</li>
-                    <li>Energy-optimized processing</li>
-                    <li>Advanced consensus mechanisms</li>
-                    <li>Automated mitigation suggestions</li>
-                </ul>
-            </div>
+                <div class="model-info-panel">
+                    <h2 class="AI_models">ML Models</h2>
+                    <div class="model-list">
+                        <div class="model-item active">
+                            <div class="model-name">Random Forest</div>
+                            <div class="model-desc">Ensemble learning with high accuracy</div>
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item active">
+                            <div class="model-name">XGBoost</div>
+                            <div class="model-desc">Gradient boosting for fast, high-performance predictions</div>
+
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item active">
+                            <div class="model-name">MLPClassifier</div>
+                            <div class="model-desc">Feedforward neural network for complex pattern recognition</div>
+
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item active">
+                            <div class="model-name">Decision TREE</div>
+                            <div class="model-desc">Tree-based model for intuitive classification and regression</div>
+
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item active">
+                            <div class="model-name">KNN</div>
+                            <div class="model-desc">Instance-based model for classification and regression</div>
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item active">
+                            <div class="model-name">Neural Network</div>
+                            <div class="model-desc">Deep learning for complex patterns</div>
+                            <div class="model-status">✅ Available</div>
+                        </div>
+                        <div class="model-item coming-soon">
+                            <div class="model-name">Gradient Bosting</div>
+                            <div class="model-desc">Ensemble method that builds strong predictors from weak learners
+                            </div>
+                            <div class="model-status">🔄 Coming Soon</div>
+                        </div>
+                        <div class="model-item coming-soon">
+                            <div class="model-name">SVM</div>
+                            <div class="model-desc">Finds the optimal boundary to classify data points accurately</div>
+                            <div class="model-status">🔄 Coming Soon</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
@@ -170,10 +240,10 @@
         // Slider live value display
         const rangeInput = document.getElementById('attackSeverity');
         const display = document.getElementById('attackValue');
-        
+
         rangeInput.addEventListener('input', () => {
             display.textContent = rangeInput.value;
-            
+
             // Change color based on severity
             const value = parseInt(rangeInput.value);
             if (value <= 2) {
@@ -188,9 +258,10 @@
         });
 
         // Form submission with loading state
-        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+        document.getElementById('predictionForm').addEventListener('submit', function (e) {
             const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerHTML = '🔄 Analyzing...';
+            const selectedModel = document.querySelector('select[name="model_type"]').selectedOptions[0].text;
+            submitBtn.innerHTML = `🔄 Analyzing with ${selectedModel}...`;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
         });
@@ -198,9 +269,24 @@
         // Clear form on page load
         window.onload = function () {
             document.getElementById("predictionForm").reset();
+            // Reset model selection to Random Forest
+            document.querySelector('select[name="model_type"]').value = 'random_forest';
             display.textContent = '5';
             display.style.background = '#ed8936';
         };
+
+        // Model selection change handler
+        document.querySelector('select[name="model_type"]').addEventListener('change', function () {
+            const selectedModel = this.selectedOptions[0].text;
+            const modelItems = document.querySelectorAll('.model-item');
+
+            modelItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.querySelector('.model-name').textContent === selectedModel.replace(' (Default)', '')) {
+                    item.classList.add('active');
+                }
+            });
+        });
 
         // Add floating particles effect
         function createParticle() {
@@ -217,15 +303,17 @@
                 animation: float 8s linear infinite;
                 z-index: 0;
             `;
-            
+
             document.body.appendChild(particle);
-            
+
             setTimeout(() => {
                 particle.remove();
             }, 8000);
         }
 
-        // Add CSS for particle animation
+
+
+        // Add CSS for particle animation and new styles
         const style = document.createElement('style');
         style.textContent = `
             @keyframes float {
@@ -234,11 +322,256 @@
                     opacity: 0;
                 }
             }
+
+            .analysis-container {
+                padding-top: 100px;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 2rem;
+            }
+
+            .nav-brand {
+                display: flex;
+                align-items: center;
+                font-weight: 700;
+                font-size: 1.25rem;
+                color: #2d3748;
+            }
+
+            .brand-icon {
+                font-size: 1.5rem;
+                margin-right: 0.5rem;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .nav-link {
+                text-decoration: none;
+                color: #4a5568;
+                font-weight: 500;
+                transition: color 0.3s ease;
+                position: relative;
+            }
+
+            .nav-link:hover, .nav-link.active {
+                color: #667eea;
+            }
+
+            .nav-link.active::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: #667eea;
+                border-radius: 1px;
+            }
+
+            .nav-cta {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 0.5rem 1.5rem;
+                border-radius: 25px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-cta:hover {
+                transform: translateY(-2px);
+                color: white;
+            }
+
+            .model-selection {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+                background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+                border-radius: 15px;
+                border: 2px solid #e2e8f0;
+            }
+
+            .model-selection .form-label {
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: #2d3748;
+                margin-bottom: 0.5rem;
+            }
+
+            .model-info {
+                color: #4a5568;
+                font-size: 0.875rem;
+                margin-top: 0.5rem;
+                font-style: italic;
+            }
+
+            .model-info-panel {
+                margin-top: 2rem;
+                padding: 1.5rem;
+                background: #f7fafc;
+                border-radius: 15px;
+                border: 1px solid #e2e8f0;
+            }
+
+            .model-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .model-item {
+                padding: 1rem;
+                background: white;
+                border-radius: 10px;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .model-item.active {
+                border-color: #667eea;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .model-item.coming-soon {
+                opacity: 0.6;
+            }
+
+            .model-name {
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+            }
+
+            .model-desc {
+                font-size: 0.875rem;
+                opacity: 0.8;
+                margin-bottom: 0.5rem;
+            }
+
+            .model-status {
+                font-size: 0.75rem;
+                font-weight: 500;
+            }
+
+            .full-width {
+                grid-column: 1 / -1;
+            }
+
+            @media (max-width: 768px) {
+                .nav-container {
+                    padding: 1rem;
+                }
+                
+                .nav-links {
+                    display: none;
+                }
+                
+                .form-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .hero-content {
+                    grid-template-columns: 1fr;
+                    gap: 2rem;
+                }
+            }
         `;
         document.head.appendChild(style);
 
         // Create particles periodically
         setInterval(createParticle, 3000);
     </script>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.backdropFilter = 'blur(10px)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.9)';
+            }
+        });
+
+        // Active navigation link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', function () {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.3;
+                }
+                50% {
+                    opacity: 0.1;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
 </body>
+
 </html>

@@ -15,10 +15,35 @@ except FileNotFoundError:
     model = None
     preprocessor = None
 
-@app.route('/', methods=['GET', 'POST'])
+# Additional models (placeholder for future implementation)
+models = {
+    'random_forest': {
+        'model': model,
+        'preprocessor': preprocessor,
+        'name': 'Random Forest'
+    }
+    # Can add more models like SVM, Neural Networks, etc.
+}
+
+@app.route('/')
 def home():
+    """Home page route"""
+    return render_template('home.html')
+
+@app.route('/analyze', methods=['GET', 'POST'])
+def analyze():
+    """Analysis page route - the original functionality"""
     if request.method == 'POST':
         try:
+            # Get selected model (default to random_forest)
+            selected_model = request.form.get('model_type', 'random_forest')
+            
+            if selected_model not in models:
+                selected_model = 'random_forest'
+            
+            current_model = models[selected_model]['model']
+            current_preprocessor = models[selected_model]['preprocessor']
+            
             # Collect input data
             data = {
                 'Data Size (KB)': [float(request.form['data_size'])],
@@ -35,10 +60,10 @@ def home():
             # Create DataFrame and make prediction
             df = pd.DataFrame(data)
             
-            if model and preprocessor:
-                X_processed = preprocessor.transform(df)
-                prediction = model.predict(X_processed)[0]
-                probability = model.predict_proba(X_processed)[0]
+            if current_model and current_preprocessor:
+                X_processed = current_preprocessor.transform(df)
+                prediction = current_model.predict(X_processed)[0]
+                probability = current_model.predict_proba(X_processed)[0]
                 confidence = max(probability) * 100
             else:
                 # Fallback for demo purposes when models aren't available
@@ -67,22 +92,32 @@ def home():
                 'message': message,
                 'recommendation': recommendation,
                 'confidence': round(confidence, 1),
-                'input_data': data
+                'input_data': data,
+                'model_used': models[selected_model]['name']
             }
 
             return render_template('result.html', **result_data)
 
         except Exception as e:
             error_msg = f"An error occurred during prediction: {str(e)}"
-            return render_template('index.html', error=error_msg)
+            return render_template('index.html', error=error_msg, models=models)
 
-    return render_template('index.html')
+    return render_template('index.html', models=models)
 
 @app.route('/api/predict', methods=['POST'])
 def api_predict():
     """API endpoint for predictions"""
     try:
         data = request.get_json()
+        
+        # Get selected model (default to random_forest)
+        selected_model = data.get('model_type', 'random_forest')
+        
+        if selected_model not in models:
+            selected_model = 'random_forest'
+        
+        current_model = models[selected_model]['model']
+        current_preprocessor = models[selected_model]['preprocessor']
         
         # Convert to DataFrame format expected by model
         df_data = {
@@ -99,10 +134,10 @@ def api_predict():
         
         df = pd.DataFrame(df_data)
         
-        if model and preprocessor:
-            X_processed = preprocessor.transform(df)
-            prediction = model.predict(X_processed)[0]
-            probability = model.predict_proba(X_processed)[0]
+        if current_model and current_preprocessor:
+            X_processed = current_preprocessor.transform(df)
+            prediction = current_model.predict(X_processed)[0]
+            probability = current_model.predict_proba(X_processed)[0]
             confidence = max(probability) * 100
         else:
             prediction = 1 if float(data['attack_severity']) <= 5 else 0
@@ -112,7 +147,8 @@ def api_predict():
             'success': True,
             'prediction': int(prediction),
             'confidence': round(confidence, 1),
-            'status': 'Threat Mitigated' if prediction == 1 else 'Threat Detected'
+            'status': 'Threat Mitigated' if prediction == 1 else 'Threat Detected',
+            'model_used': models[selected_model]['name']
         })
         
     except Exception as e:
@@ -123,5 +159,8 @@ def api_predict():
 
 if __name__ == '__main__':
     # Create necessary directories if they don't exist
+    os.makedirs('models', exist_ok=True)
+    os.makedirs('templates', exist_ok=True)
+    os.makedirs('static', exist_ok=True)
     
     app.run(debug=True, host='0.0.0.0', port=5000)
