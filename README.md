@@ -20,7 +20,6 @@ Virtual environment (recommended)
     cd ml_web_app
 
 2. Create a virtual environment
-
     python -m venv venv
 
 3. Activate the virtual environment
@@ -32,54 +31,27 @@ Virtual environment (recommended)
     source venv/bin/activate
 
 4. Install dependencies
-    
     pip install -r requirements.txt
 
 5. lace your trained models
-    
+
     Ensure random_forest_model.pkl is in the models/ directory
     Ensure preprocessor.pkl is in the models/ directory
 
 🚀 Running the Application
 1. Start the Flask development server
-    
     python app.py
 
 2. Open your web browser and navigate to:
-    
     http://localhost:5000
 
 
-📁 Project Structure
-
-ml_web_app/
-│
-├── app.py
-|
-├── requirements.txt
-|
-├── models/
-|   |
-│   ├── random_forest_model.pkl
-│   └── preprocessor.pkl
-|
-├── templates/
-|   |
-│   ├── index.html
-│   └── result.html
-├── static/
-|   |
-│   ├── style.css 
-│
-└── README.md
+![alt text](/images/image-1.png)
 
 🎯 How to Use
-
 Web Interface
-
 1. Navigate to the home page
 2. Fill in the IoT system parameters:
-
 Data Size (KB)
     Processing Time (ms)
     Attack Severity (0-10 scale)
@@ -101,18 +73,6 @@ REST API
 Send POST requests to /api/predict with JSON data:
 
 curl -X POST http://localhost:5000/api/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "data_size": 1024,
-    "processing_time": 250,
-    "attack_severity": 5,
-    "blockchain_time": 500,
-    "energy": 150,
-    "iot_layer": "Device",
-    "request_type": "Data Transmission",
-    "threat_type": "Eavesdropping",
-    "consensus": "PoA"
-  }'
 
 
 🔧 Configuration
@@ -129,7 +89,7 @@ random_forest_model.pkl: Trained Random Forest model
 preprocessor.pkl: Data preprocessing pipeline
 If these files are not found, the application will use a fallback prediction method.
 
-![alt text](image-2.png)
+![alt text](/images/image.png)
 
 🎨 Features Overview
 🎯 Threat Assessment
