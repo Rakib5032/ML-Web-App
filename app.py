@@ -1,17 +1,17 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template
 import pandas as pd
 import joblib
 
-# Load pre-trained model and preprocessor
+app = Flask(__name__)
+
+# Load model and preprocessor
 model = joblib.load('models/random_forest_model.pkl')
 preprocessor = joblib.load('models/preprocessor.pkl')
-
-app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        # Collect user input
+        # Collect input
         data = {
             'Data Size (KB)': [float(request.form['data_size'])],
             'Processing Time (ms)': [float(request.form['processing_time'])],
@@ -28,19 +28,20 @@ def home():
         X_processed = preprocessor.transform(df)
         prediction = model.predict(X_processed)[0]
 
-        # Decide warning based on prediction
-        if prediction == 0:
-            status = "Threat Not Mitigated"
-            warning = "⚠️ Risk Detected! Immediate attention required."
-        else:
+        # Determine status message and color
+        if prediction == 1:
             status = "Threat Mitigated"
-            warning = "✅ System Safe."
+            color = "success"
+            warning = "No immediate risk detected."
+        else:
+            status = "Threat Detected"
+            color = "danger"
+            warning = "⚠️ Action required!"
 
-        # Redirect to result page
-        return render_template('result.html', status=status, warning=warning)
+        return render_template('result.html', status=status, color=color, warning=warning)
 
     return render_template('index.html')
-    
+
 
 if __name__ == '__main__':
     app.run(debug=True)

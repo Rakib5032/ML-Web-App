@@ -1,65 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>IoT Threat Mitigation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <div class="container">
-        <h1>IoT Threat Mitigation Prediction</h1>
-        <form method="POST">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">IoT Threat Mitigation Prediction</h1>
+        <form method="POST" id="predictionForm" class="p-4 border rounded shadow">
             <!-- Numerical Inputs -->
-            <label>Data Size (KB):</label>
-            <input type="number" name="data_size" step="any" required>
+            <div class="mb-3">
+                <label class="form-label">Data Size (KB)</label>
+                <input type="number" step="any" class="form-control" name="data_size" required>
+            </div>
 
-            <label>Processing Time (ms):</label>
-            <input type="number" name="processing_time" step="any" required>
+            <div class="mb-3">
+                <label class="form-label">Processing Time (ms)</label>
+                <input type="number" step="any" class="form-control" name="processing_time" required>
+            </div>
 
-            <label>Attack Severity (0-10):</label>
-            <input type="number" name="attack_severity" step="any" min="0" max="10" required>
+            <div class="mb-3">
+                <label class="form-label">Attack Severity (0-10): <span id="attackValue">5</span></label>
+                <input type="range" min="0" max="10" step="1" class="form-range" 
+                       name="attack_severity" id="attackSeverity" value="5" required>
+            </div>
 
-            <label>Blockchain Transaction Time (ms):</label>
-            <input type="number" name="blockchain_time" step="any" required>
+            <div class="mb-3">
+                <label class="form-label">Blockchain Transaction Time (ms)</label>
+                <input type="number" step="any" class="form-control" name="blockchain_time" required>
+            </div>
 
-            <label>Energy Consumption (mJ):</label>
-            <input type="number" name="energy" step="any" required>
+            <div class="mb-3">
+                <label class="form-label">Energy Consumption (mJ)</label>
+                <input type="number" step="any" class="form-control" name="energy" required>
+            </div>
 
             <!-- Categorical Inputs -->
-            <label>IoT Layer:</label>
-            <select name="iot_layer" required>
-                <option value="Device">Device</option>
-                <option value="Network">Network</option>
-                <option value="Application">Application</option>
-            </select>
+            <div class="mb-3">
+                <label class="form-label">IoT Layer</label>
+                <select class="form-select" name="iot_layer" required>
+                    <option value="" disabled selected>Select IoT Layer</option>
+                    <option value="Device">Device</option>
+                    <option value="Network">Network</option>
+                    <option value="Application">Application</option>
+                </select>
+            </div>
 
-            <label>Request Type:</label>
-            <select name="request_type" required>
-                <option value="Data Transmission">Data Transmission</option>
-                <option value="Encrypted Data Transfer">Encrypted Data Transfer</option>
-                <option value="Smart Contract Execution">Smart Contract Execution</option>
-                <option value="Authentication">Authentication</option>
-            </select>
+            <div class="mb-3">
+                <label class="form-label">Request Type</label>
+                <select class="form-select" name="request_type" required>
+                    <option value="" disabled selected>Select Request Type</option>
+                    <option value="Data Transmission">Data Transmission</option>
+                    <option value="Encrypted Data Transfer">Encrypted Data Transfer</option>
+                    <option value="Smart Contract Execution">Smart Contract Execution</option>
+                    <option value="Authentication">Authentication</option>
+                </select>
+            </div>
 
-            <label>Security Threat Type:</label>
-            <select name="threat_type" required>
-                <option value="Eavesdropping">Eavesdropping</option>
-                <option value="Man-in-the-Middle">Man-in-the-Middle</option>
-                <option value="Tampering">Tampering</option>
-                <option value="Unauthorized Access">Unauthorized Access</option>
-                <option value="DDoS">DDoS</option>
-            </select>
+            <div class="mb-3">
+                <label class="form-label">Security Threat Type</label>
+                <select class="form-select" name="threat_type" required>
+                    <option value="" disabled selected>Select Threat Type</option>
+                    <option value="Eavesdropping">Eavesdropping</option>
+                    <option value="Man-in-the-Middle">Man-in-the-Middle</option>
+                    <option value="Tampering">Tampering</option>
+                    <option value="Unauthorized Access">Unauthorized Access</option>
+                    <option value="DDoS">DDoS</option>
+                </select>
+            </div>
 
-            <label>Consensus Mechanism:</label>
-            <select name="consensus" required>
-                <option value="PoA">PoA</option>
-                <option value="PoS">PoS</option>
-                <option value="PoW">PoW</option>
-                <option value="PBFT">PBFT</option>
-            </select>
+            <div class="mb-3">
+                <label class="form-label">Consensus Mechanism</label>
+                <select class="form-select" name="consensus" required>
+                    <option value="" disabled selected>Select Consensus</option>
+                    <option value="PoA">PoA</option>
+                    <option value="PoS">PoS</option>
+                    <option value="PoW">PoW</option>
+                    <option value="PBFT">PBFT</option>
+                </select>
+            </div>
 
-            <button type="submit">Predict</button>
+            <button type="submit" class="btn btn-primary w-100">Predict</button>
         </form>
     </div>
+
+    <script>
+        // Slider live value display
+        const rangeInput = document.getElementById('attackSeverity');
+        const display = document.getElementById('attackValue');
+        display.textContent = rangeInput.value;
+
+        rangeInput.addEventListener('input', () => {
+            display.textContent = rangeInput.value;
+        });
+
+        // Clear form on page load to prevent cached values
+        window.onload = function () {
+            document.getElementById("predictionForm").reset();
+            display.textContent = 5; // reset slider display
+        };
+    </script>
 </body>
 </html>
