@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IoT Threat Mitigation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>IoT Threat Mitigation Prediction</h1>
+        <form method="POST">
+            <!-- Numerical Inputs -->
+            <label>Data Size (KB):</label>
+            <input type="number" name="data_size" step="any" required>
+
+            <label>Processing Time (ms):</label>
+            <input type="number" name="processing_time" step="any" required>
+
+            <label>Attack Severity (0-10):</label>
+            <input type="number" name="attack_severity" step="any" min="0" max="10" required>
+
+            <label>Blockchain Transaction Time (ms):</label>
+            <input type="number" name="blockchain_time" step="any" required>
+
+            <label>Energy Consumption (mJ):</label>
+            <input type="number" name="energy" step="any" required>
+
+            <!-- Categorical Inputs -->
+            <label>IoT Layer:</label>
+            <select name="iot_layer" required>
+                <option value="Device">Device</option>
+                <option value="Network">Network</option>
+                <option value="Application">Application</option>
+            </select>
+
+            <label>Request Type:</label>
+            <select name="request_type" required>
+                <option value="Data Transmission">Data Transmission</option>
+                <option value="Encrypted Data Transfer">Encrypted Data Transfer</option>
+                <option value="Smart Contract Execution">Smart Contract Execution</option>
+                <option value="Authentication">Authentication</option>
+            </select>
+
+            <label>Security Threat Type:</label>
+            <select name="threat_type" required>
+                <option value="Eavesdropping">Eavesdropping</option>
+                <option value="Man-in-the-Middle">Man-in-the-Middle</option>
+                <option value="Tampering">Tampering</option>
+                <option value="Unauthorized Access">Unauthorized Access</option>
+                <option value="DDoS">DDoS</option>
+            </select>
+
+            <label>Consensus Mechanism:</label>
+            <select name="consensus" required>
+                <option value="PoA">PoA</option>
+                <option value="PoS">PoS</option>
+                <option value="PoW">PoW</option>
+                <option value="PBFT">PBFT</option>
+            </select>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>

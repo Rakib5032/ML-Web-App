@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>IoT Threat Mitigation Result</h1>
+        <div class="result">
+            <h2>Status: {{ status }}</h2>
+            <p>{{ warning }}</p>
+        </div>
+        <a href="{{ url_for('home') }}"><button>Back</button></a>
+    </div>
+</body>
+</html>
