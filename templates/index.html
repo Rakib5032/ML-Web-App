@@ -24,7 +24,7 @@
             </a>
             <div class="nav-links">
                 <a href="#" class="nav-link active">Analysis</a>
-                <a href="#AI_models" class="nav-link">AI Models</a>
+                <a href="#ai_models" class="nav-link">AI Models</a>
             </div>
             <div class="nav-actions">
                 <a href="{{ url_for('home') }}" class="nav-cta">← Back to Home</a>
@@ -178,7 +178,7 @@
             <section id="AI_models" class="AI_models">
                 <div class="container analysis-container">
                     <div class="header">
-                        <h1>Available ML Models</h1>
+                        <h2>Available ML Models</h2>
                         <p>Explore the machine learning algorithms powering our threat detection</p>
                     </div>
                 </div>
@@ -187,53 +187,261 @@
                     <h2 class="AI_models">ML Models</h2>
                     <div class="model-list">
                         <div class="model-item active">
-                            <div class="model-name">Random Forest</div>
-                            <div class="model-desc">Ensemble learning with high accuracy</div>
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item active">
-                            <div class="model-name">XGBoost</div>
-                            <div class="model-desc">Gradient boosting for fast, high-performance predictions</div>
-
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item active">
-                            <div class="model-name">MLPClassifier</div>
-                            <div class="model-desc">Feedforward neural network for complex pattern recognition</div>
-
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item active">
-                            <div class="model-name">Decision TREE</div>
-                            <div class="model-desc">Tree-based model for intuitive classification and regression</div>
-
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item active">
-                            <div class="model-name">KNN</div>
-                            <div class="model-desc">Instance-based model for classification and regression</div>
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item active">
-                            <div class="model-name">Neural Network</div>
-                            <div class="model-desc">Deep learning for complex patterns</div>
-                            <div class="model-status">✅ Available</div>
-                        </div>
-                        <div class="model-item coming-soon">
-                            <div class="model-name">Gradient Bosting</div>
-                            <div class="model-desc">Ensemble method that builds strong predictors from weak learners
+                            <div class="model-name">
+                                <div class="model-status">✅ Available</div>
+                                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                    <li>Random Forest (Default)</li>
+                                    <li>XGBoost</li>
+                                    <li>MLPClassifier</li>
+                                    <li>Decision TREE</li>
+                                    <li>KNN</li>
+                                    <li>Neural Network</li>
+                                </ul>
                             </div>
-                            <div class="model-status">🔄 Coming Soon</div>
                         </div>
                         <div class="model-item coming-soon">
-                            <div class="model-name">SVM</div>
-                            <div class="model-desc">Finds the optimal boundary to classify data points accurately</div>
-                            <div class="model-status">🔄 Coming Soon</div>
+                            <div class="model-name">
+                                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                    <div class="model-status">🔄 Coming Soon</div>
+                                    <li>Gradient Boosting</li>
+                                    <li>SVM</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
+        <div class="spacer"></div>
+        <!-- AI Models Section -->
+        <section id="ai_models" class="ai-models-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Available ML Models</h2>
+                    <p>Explore the machine learning algorithms powering our threat detection system</p>
+                </div>
+
+                <div class="models-grid">
+                    <!-- Available Models Card -->
+                    <div class="model-category-card available">
+                        <div class="card-header">
+                            <div class="category-icon">🚀</div>
+                            <div class="category-info">
+                                <h3>Production Ready Models</h3>
+                                <span class="status-badge available">✅ Available Now</span>
+                            </div>
+                        </div>
+
+                        <div class="models-list">
+                            <div class="model-item">
+                                <div class="model-icon">🌲</div>
+                                <div class="model-details">
+                                    <h4>Random Forest</h4>
+                                    <p>Ensemble learning method with high accuracy and robustness</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 96%</span>
+                                        <span class="metric">Speed: Fast</span>
+                                    </div>
+                                </div>
+                                <div class="model-status active">Default</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">⚡</div>
+                                <div class="model-details">
+                                    <h4>XGBoost</h4>
+                                    <p>Gradient boosting framework optimized for speed and performance</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 92%</span>
+                                        <span class="metric">Speed: Very Fast</span>
+                                    </div>
+                                </div>
+                                <div class="model-status available">Ready</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">🧠</div>
+                                <div class="model-details">
+                                    <h4>MLPClassifier</h4>
+                                    <p>Multi-layer perceptron for complex pattern recognition</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 97%</span>
+                                        <span class="metric">Speed: Medium</span>
+                                    </div>
+                                </div>
+                                <div class="model-status available">Ready</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">🌳</div>
+                                <div class="model-details">
+                                    <h4>Decision Tree</h4>
+                                    <p>Interpretable model with clear decision paths</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 94%</span>
+                                        <span class="metric">Speed: Very Fast</span>
+                                    </div>
+                                </div>
+                                <div class="model-status available">Ready</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">📍</div>
+                                <div class="model-details">
+                                    <h4>K-Nearest Neighbors</h4>
+                                    <p>Instance-based learning algorithm for classification</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 94%</span>
+                                        <span class="metric">Speed: Medium</span>
+                                    </div>
+                                </div>
+                                <div class="model-status available">Ready</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">🔗</div>
+                                <div class="model-details">
+                                    <h4>Neural Network</h4>
+                                    <p>Deep learning model for advanced threat detection</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Accuracy: 98%</span>
+                                        <span class="metric">Speed: Medium</span>
+                                    </div>
+                                </div>
+                                <div class="model-status available">Ready</div>
+                            </div>
+                        </div>
+
+                        <div class="card-summary">
+                            <div class="summary-text">
+                                <strong>6 Models Available</strong> - A comprehensive collection of machine learning
+                                algorithms
+                                designed for IoT threat detection, offering high accuracy, scalability, and adaptability
+                                for various security scenarios.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coming Soon Models Card -->
+                    <div class="model-category-card coming-soon">
+                        <div class="card-header">
+                            <div class="category-icon">🔄</div>
+                            <div class="category-info">
+                                <h3>Advanced Models</h3>
+                                <span class="status-badge coming-soon">🔄 Coming Soon</span>
+                            </div>
+                        </div>
+
+                        <div class="models-list">
+                            <div class="model-item">
+                                <div class="model-icon">📈</div>
+                                <div class="model-details">
+                                    <h4>Gradient Boosting</h4>
+                                    <p>Ensemble method that builds strong predictors from weak learners</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Expected Accuracy: 94%+</span>
+                                        <span class="metric">Speed: Fast</span>
+                                    </div>
+                                </div>
+                                <div class="model-status pending" style=" color:black">Q2 2025</div>
+                            </div>
+
+                            <div class="model-item">
+                                <div class="model-icon">🎯</div>
+                                <div class="model-details">
+                                    <h4>Support Vector Machine</h4>
+                                    <p>Advanced classification with optimal separating hyperplanes</p>
+                                    <div class="model-metrics">
+                                        <span class="metric">Expected Accuracy: 95%+</span>
+                                        <span class="metric">Speed: Medium</span>
+                                    </div>
+                                </div>
+                                <div class="model-status pending" style=" color:black">
+                                    Q3 2025
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card-summary">
+                            <div class="summary-text">
+                                <strong>2 Models In Development</strong> - Advanced algorithms currently under
+                                development
+                                and testing to further enhance our threat detection capabilities with even higher
+                                accuracy
+                                and specialized use cases.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Comparison Chart -->
+                <div class="comparison-section">
+                    <h3>Performance Comparison</h3>
+                    <div class="comparison-chart">
+                        <div class="chart-header">
+                            <div class="chart-title">Model Accuracy Comparison</div>
+                            <div class="chart-subtitle">Based on our IoT threat detection dataset</div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="bar-item">
+                                <div class="bar-label">Neural Network</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 98.0%;" data-value="98.0%"></div>
+                                </div>
+                                <div class="bar-value">98.0%</div>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar-label">MLPClassifier</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 97%;" data-value="97%"></div>
+                                </div>
+                                <div class="bar-value">97.0%</div>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar-label">Random Forest</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 95.8%;" data-value="95.8%"></div>
+                                </div>
+                                <div class="bar-value">95.8%</div>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar-label">Decision Tree</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 94.2%;" data-value="94.2%"></div>
+                                </div>
+                                <div class="bar-value">94.2%</div>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar-label">KNN</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 94.0%;" data-value="94.0%"></div>
+                                </div>
+                                <div class="bar-value">94.0%</div>
+                            </div>
+                            <div class="bar-item">
+                                <div class="bar-label">XGBoost</div>
+                                <div class="bar-container">
+                                    <div class="bar-fill" style="width: 91.9%;" data-value="91.9%"></div>
+                                </div>
+                                <div class="bar-value">91.%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="models-cta">
+                    <div class="cta-content">
+                        <h3>Ready to test our AI models?</h3>
+                        <p>Experience the power of machine learning in IoT security with real-time threat detection</p>
+                        <a href="{{ url_for('analyze') }}" class="cta-button">
+                            🔍 Start Security Analysis
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>

@@ -48,6 +48,10 @@
 
                     <div class="analysis-details">
                         <h4>📊 Input Parameters Analyzed</h4>
+                        <!-- Add Model Used Here -->
+                        <div class="model-used" style="margin-top: 10px; font-weight: bold; color: #2a9d8f; background-color: rgb(233, 197, 151) ;">
+                            🧠 Model Used: {{ model_used }}
+                        </div>
                         <div class="parameter-grid">
                             {% for key, value in input_data.items() %}
                             <div class="parameter-item">
@@ -56,7 +60,9 @@
                             </div>
                             {% endfor %}
                         </div>
+
                     </div>
+
                 </div>
 
                 <div class="result-actions">
@@ -64,7 +70,7 @@
                         🔄 New Analysis
                     </a>
                     <a href="{{ url_for('home') }}" class="btn-primary">
-                        🏠  Back To Home
+                        🏠 Back To Home
                     </a>
                     <button onclick="downloadReport()" class="btn-secondary">
                         📋 Download Report

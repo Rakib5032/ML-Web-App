@@ -28,11 +28,28 @@ def load_model(path, name):
     return model
 
 models = {
-    'random_forest': {'model': load_model('models/random_forest_model.pkl', 'Random Forest'), 'name': 'Random Forest'},
-    'svm': {'model': load_model('models/svm_model.pkl', 'SVM'), 'name': 'Support Vector Machine'},
-    'xgboost': {'model': load_model('models/xgboost_model.pkl', 'XGBoost'), 'name': 'XGBoost'},
-    'mlp': {'model': load_model('models/mlp_model.pkl', 'MLP'), 'name': 'MLP Classifier'}
+    'random_forest': {
+        'model': load_model('models/random_forest_model.pkl', 'Random Forest'),
+        'name': 'Random Forest'
+    },
+    'decision_tree': {
+        'model': load_model('models/decision_tree_model.pkl', 'Decision Tree'),
+        'name': 'Decision Tree'
+    },
+    'knn': {
+        'model': load_model('models/knn_model.pkl', 'KNN'),
+        'name': 'K-Nearest Neighbors'
+    },
+    'xgboost': {
+        'model': load_model('models/xgboost_model.pkl', 'XGBoost'),
+        'name': 'XGBoost'
+    },
+    'mlp': {
+        'model': load_model('models/mlp_model.pkl', 'MLP'),
+        'name': 'MLP Classifier'
+    }
 }
+
 
 # ================================
 # Flask routes
@@ -148,7 +165,8 @@ def api_predict():
 
 
 if __name__ == '__main__':
-    os.makedirs('models', exist_ok=True)
-    os.makedirs('templates', exist_ok=True)
-    os.makedirs('static', exist_ok=True)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))  # Dynamic port for hosting
+    app.run(debug=True, host='0.0.0.0', port=port)
+
+

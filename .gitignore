@@ -1,33 +1,19 @@
-# Python
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-*.pyc
 
 # Virtual environment
 venv/
 env/
 ENV/
 
-# Jupyter Notebook checkpoints
+# Jupyter Notebook
 .ipynb_checkpoints/
 
-# Data files
-*.csv
-*.xlsx
-*.xls
-*.json
-
-# Model files
-*.pkl
-*.joblib
-
-# IDE specific
+# IDE / Editor
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
 
 # OS files
 .DS_Store
@@ -36,5 +22,15 @@ Thumbs.db
 # Logs
 *.log
 
-# Flask instance folder (if used)
+# Data files (optional)
+*.csv
+*.xlsx
+*.xls
+*.json
+
+# Flask instance folder
 instance/
+
+# Keep models for deployment (uncomment if you want to ignore locally)
+# *.pkl
+# *.joblib
