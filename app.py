@@ -45,7 +45,7 @@ models = {
         'name': 'XGBoost'
     },
     'mlp': {
-        'model': load_model('models/mlp_model.pkl', 'MLP'),
+        'model': load_model('models/mlp_classifier_model.pkl', 'MLP'),
         'name': 'MLP Classifier'
     }
 }
@@ -165,8 +165,8 @@ def api_predict():
 
 
 if __name__ == '__main__':
-    import os
-    port = int(os.environ.get("PORT", 5000))  # Dynamic port for hosting
-    app.run(debug=True, host='0.0.0.0', port=port)
-
+    os.makedirs('models', exist_ok=True)
+    os.makedirs('templates', exist_ok=True)
+    os.makedirs('static', exist_ok=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
