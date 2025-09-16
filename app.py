@@ -45,8 +45,12 @@ models = {
         'name': 'XGBoost'
     },
     'mlp': {
-        'model': load_model('models/mlp_classifier_model.pkl', 'MLP'),
+        'model': load_model('models/mlp_classifier_model.pkl.pkl', 'MLP'),
         'name': 'MLP Classifier'
+    },
+    'nn': {
+        'model': load_model('models/neural_network_model.pkl.pkl', 'NN'),
+        'name': 'Neural Network'
     }
 }
 
